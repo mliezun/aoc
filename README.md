@@ -1,5 +1,8 @@
 # Advent of Code 2023 Solutions
 
+![Advent of Code](https://img.shields.io/badge/Advent%20of%20Code-2023-red)
+![Language](https://img.shields.io/badge/Language-Python-blue)
+
 This repository contains my Python solutions for the Advent of Code 2023 challenge, organized by days.
 
 ## Folder Structure
