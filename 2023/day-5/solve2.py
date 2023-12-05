@@ -1,4 +1,3 @@
-from multiprocessing import Pool
 import time
 
 seeds = """seeds: 79 14 55 13
@@ -36,6 +35,10 @@ humidity-to-location map:
 56 93 4"""
 
 # seeds = open("input.txt", "r").read()
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) == 2:
+        seeds = open(sys.argv[1], "r").read()
 
 seed_maps = [smap.split("\n") for smap in seeds.split("\n\n") if smap.strip()]
 
@@ -83,26 +86,24 @@ def process_seeds(seed):
 
 
 def main():
-    lmap = lambda f, c: list(map(f, c))
     min_seed_location = None
 
-    with Pool() as p:
-        global seed_numbers
-        seed_numbers = [
-            range(seed_numbers[i], seed_numbers[i] + seed_numbers[i+1])
-            for i in range(0, len(seed_numbers), 2)
-        ]
-        print("Ended expansion, calculate locations")
-        for i, seeds in enumerate(seed_numbers):
-            print("Calculate location for group", i + 1, "len", len(seeds))
-            start = time.time()
-            for loc in map(process_seeds, seeds):
-                if min_seed_location is None or loc < min_seed_location:
-                    min_seed_location = loc
-            print("Calculate location for group", i + 1, "len", len(seeds), f"(time {time.time()-start}s)")
+    global seed_numbers
+    seed_numbers = [
+        range(seed_numbers[i], seed_numbers[i] + seed_numbers[i+1])
+        for i in range(0, len(seed_numbers), 2)
+    ]
+    print(seed_numbers)
+    print("Ended expansion, calculate locations")
+    for i, seeds in enumerate(seed_numbers):
+        print("Calculate location for group", i + 1, "len", len(seeds))
+        start = time.time()
+        for loc in map(process_seeds, seeds):
+            if min_seed_location is None or loc < min_seed_location:
+                min_seed_location = loc
+        print("Calculate location for group", i + 1, "len", len(seeds), f"(time {time.time()-start}s)")
 
     print(min_seed_location)
 
 
-if __name__ == "__main__":
-    main()
+main()
