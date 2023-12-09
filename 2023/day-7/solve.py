@@ -10,13 +10,14 @@ hands = open("input.txt", "r").read()
 
 hands_bids = [h.strip().split() for h in hands.splitlines() if h.strip()]
 
-cards = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2']
+cards = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
+
 
 class Hand:
     def __init__(self, cards: str, bid: int):
         self.cards = cards
         self.bid = bid
-        
+
     @property
     def kind(self):
         # Five of a kind
@@ -48,7 +49,7 @@ class Hand:
             if self.cards.count(card) == 2:
                 return 5
         return 6
-    
+
     def compare(self, other: "Hand"):
         if self.kind > other.kind:
             return 1
@@ -62,10 +63,11 @@ class Hand:
                     return -1
             return 0
 
+
 handes = [Hand(h[0], int(h[1])) for h in hands_bids]
 handes.sort(key=cmp_to_key(lambda a, b: a.compare(b)), reverse=True)
 
 # for i, h in enumerate(handes):
 #     print(i, h.cards, h.bid, (i+1)*h.bid)
 
-print("result:", sum([(i+1)*h.bid for i, h in enumerate(handes)]))
+print("result:", sum([(i + 1) * h.bid for i, h in enumerate(handes)]))

@@ -37,6 +37,7 @@ humidity-to-location map:
 # seeds = open("input.txt", "r").read()
 if __name__ == "__main__":
     import sys
+
     if len(sys.argv) == 2:
         seeds = open(sys.argv[1], "r").read()
 
@@ -90,7 +91,7 @@ def main():
 
     global seed_numbers
     seed_numbers = [
-        range(seed_numbers[i], seed_numbers[i] + seed_numbers[i+1])
+        range(seed_numbers[i], seed_numbers[i] + seed_numbers[i + 1])
         for i in range(0, len(seed_numbers), 2)
     ]
     print(seed_numbers)
@@ -101,7 +102,13 @@ def main():
         for loc in map(process_seeds, seeds):
             if min_seed_location is None or loc < min_seed_location:
                 min_seed_location = loc
-        print("Calculate location for group", i + 1, "len", len(seeds), f"(time {time.time()-start}s)")
+        print(
+            "Calculate location for group",
+            i + 1,
+            "len",
+            len(seeds),
+            f"(time {time.time()-start}s)",
+        )
 
     print(min_seed_location)
 

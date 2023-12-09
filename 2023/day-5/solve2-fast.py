@@ -1,4 +1,3 @@
-
 seeds = """seeds: 79 14 55 13
 
 seed-to-soil map:
@@ -58,7 +57,7 @@ class MapRange:
         if self.start_src <= n < self.start_src + self.range_size:
             return self.start_dst + (n - self.start_src), True
         return n, False
-    
+
     def intersect(self, other: range):
         """Intersection between ranges.
         Possible ways of intersecting [a b] and [c d]:
@@ -80,14 +79,20 @@ class MapRange:
             if other.start < self.start_src + self.range_size:
                 return [
                     # range(self.start_src, other.start),
-                    range(self.start_dst + (other.start - self.start_src), self.start_dst + (other.stop - self.start_src)),
+                    range(
+                        self.start_dst + (other.start - self.start_src),
+                        self.start_dst + (other.stop - self.start_src),
+                    ),
                     # range(other.stop, self.start_src + self.range_size),
                 ], True
             # [a   [c  b]    d]
             else:
                 return [
                     # range(self.start_src, other.start),
-                    range(self.start_dst + (other.start - self.start_src), self.start_dst + self.range_size),
+                    range(
+                        self.start_dst + (other.start - self.start_src),
+                        self.start_dst + self.range_size,
+                    ),
                     range(self.start_src + self.range_size, other.stop),
                 ], True
         # [c   [a  b]    d]
@@ -104,10 +109,13 @@ class MapRange:
             else:
                 return [
                     range(other.start, self.start_src),
-                    range(self.start_dst, self.start_dst + (other.stop - self.start_src)),
+                    range(
+                        self.start_dst, self.start_dst + (other.stop - self.start_src)
+                    ),
                     # range(other.stop, self.start_src + self.range_size),
                 ], True
         return [other], False
+
 
 ## Generate all ranges
 maps_ranges = []
@@ -137,7 +145,6 @@ def main():
         input_ranges = result_ranges
 
     print("result:", min(input_ranges, key=lambda x: x.start).start)
-        
 
 
 if __name__ == "__main__":

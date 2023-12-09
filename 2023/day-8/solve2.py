@@ -36,8 +36,8 @@ for node in start_nodes:
         next_node = nodes[start_node][ix]
         start_node = next_node
         if next_node.endswith("Z"):
-            print("next_node", next_node, i+1, k)
-    print("="*20)
+            print("next_node", next_node, i + 1, k)
+    print("=" * 20)
 
 # Copied from previous print
 # Length of the cycles to get to the last node:

@@ -5,7 +5,7 @@ Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
 Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
 Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11"""
 
-cards = open('input.txt', 'r').read()
+cards = open("input.txt", "r").read()
 
 cards = [card for card in cards.split("\n") if card.strip()]
 
@@ -25,14 +25,14 @@ for card in cards:
             "copies": 1,
         }
     )
-        
+
 # total_cards = []
 processing_batch = processed_cards.copy()
 for i, card in enumerate(processing_batch):
     if card["match_numbers"]:
-        for next_cards in processing_batch[i+1:i+1+len(card["match_numbers"])]:
+        for next_cards in processing_batch[i + 1 : i + 1 + len(card["match_numbers"])]:
             next_cards["copies"] += card["copies"]
-    
+
 
 print(processing_batch)
 print(sum([card["copies"] for card in processing_batch]))

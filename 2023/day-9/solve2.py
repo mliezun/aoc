@@ -6,10 +6,11 @@ history = open("input.txt", "r").read()
 
 history = [list(map(int, values.split())) for values in history.splitlines()]
 
+
 def diff(values):
     diffs = []
-    for i in range(len(values)-1):
-        diffs.append(values[i+1]-values[i])
+    for i in range(len(values) - 1):
+        diffs.append(values[i + 1] - values[i])
     return diffs
 
 
@@ -21,7 +22,7 @@ for values in history:
     print(changes)
     last_number = 0
     for change in reversed(changes):
-        last_number = change[0]-last_number
+        last_number = change[0] - last_number
     results.append(last_number)
-    
+
 print("results:", results, sum(results))
