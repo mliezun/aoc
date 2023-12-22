@@ -61,6 +61,9 @@ def walk_garden(garden, steps):
             del walked[i-1]
     return walked[i+1]
 
+# This was a very tricky one
+# See discussion: https://www.reddit.com/r/adventofcode/comments/18nevo3/2023_day_21_solutions/
+
 expansion_rate = 5
 expanded_garden = copy_rows([copy_columns(r, expansion_rate) for r in garden], expansion_rate)
 print("After expansion")
