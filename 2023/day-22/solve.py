@@ -8,15 +8,20 @@ bricks = """1,0,1~1,2,1
 2,0,5~2,2,5
 0,1,6~2,1,6
 1,1,8~1,1,9"""
-    
-    
+
+
 bricks = open("input.txt", "r").read().strip()
+
 
 def as_coordinates(b: str):
     b, e = b.split("~")
-    return tuple(map(int, b.split(','))), tuple(map(int, e.split(',')))
+    return tuple(map(int, b.split(","))), tuple(map(int, e.split(",")))
 
-bricks = [as_coordinates(brick.strip()) for brick in bricks.splitlines() if brick.strip()]
+
+bricks = [
+    as_coordinates(brick.strip()) for brick in bricks.splitlines() if brick.strip()
+]
+
 
 def intersection(line1, line2):
     x1, y1, _ = line1[0]
@@ -29,6 +34,7 @@ def intersection(line1, line2):
         return False
     return True
 
+
 def safely_disintegrate(bricks):
     sorted_bricks_z = list(sorted(bricks, key=lambda b: min(b[0][2], b[1][2])))
     final_layout = {}
@@ -38,36 +44,37 @@ def safely_disintegrate(bricks):
         for j, other_brick in final_layout.items():
             if intersection(brick, other_brick):
                 intersections[i].append(j)
-                z = max(z, max(other_brick[0][2], other_brick[1][2])+1)
+                z = max(z, max(other_brick[0][2], other_brick[1][2]) + 1)
         x1, y1, z1 = brick[0]
         x2, y2, z2 = brick[1]
-        h = abs(z2-z1)
+        h = abs(z2 - z1)
         if z1 < z2:
             z1 = z
-            z2 = z1+h
+            z2 = z1 + h
         else:
             z2 = z
-            z1 = z2+h
+            z1 = z2 + h
         brick_coord = ((x1, y1, z1), (x2, y2, z2))
         final_layout[i] = brick_coord
-    
+
     filtered_intersections = defaultdict(list)
     for b1, ii in intersections.items():
         brick1 = final_layout[b1]
         for b2 in ii:
             brick2 = final_layout[b2]
-            if brick1[1][2] == brick2[0][2]-1:
+            if brick1[1][2] == brick2[0][2] - 1:
                 filtered_intersections[b1].append(b2)
-            elif brick2[1][2] == brick1[0][2]-1:
+            elif brick2[1][2] == brick1[0][2] - 1:
                 filtered_intersections[b2].append(b1)
 
-        
     supported_by_bricks = defaultdict(list)
     for b1, ii in filtered_intersections.items():
         for b2 in ii:
             supported_by_bricks[b2].append(b1)
-            
-    non_supporting_bricks = set(final_layout.keys()) - set(filtered_intersections.keys())
+
+    non_supporting_bricks = set(final_layout.keys()) - set(
+        filtered_intersections.keys()
+    )
 
     min_supporting_count = {}
     for bb in supported_by_bricks.values():
@@ -81,5 +88,6 @@ def safely_disintegrate(bricks):
     )
 
     return disintegrate_bricks
+
 
 print("result:", len(safely_disintegrate(bricks)))
