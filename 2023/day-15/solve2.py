@@ -15,7 +15,7 @@ def hash(value: str) -> int:
 def put_lenses_in_box(lenses):
     boxes = [{} for _ in range(256)]
     for lense in lenses:
-        if lense.endswith('-'):
+        if lense.endswith("-"):
             label = lense[:-1]
             box = boxes[hash(label)]
             if label in box:
@@ -25,11 +25,12 @@ def put_lenses_in_box(lenses):
             boxes[hash(label)][label] = int(value)
     return boxes
 
+
 def focusing_power(boxes):
     accum = 0
     for bn, box in enumerate(boxes):
         for slot, focal_length in enumerate(box.values()):
-            accum += (bn+1)*(slot+1)*focal_length
+            accum += (bn + 1) * (slot + 1) * focal_length
     return accum
 
 

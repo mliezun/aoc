@@ -31,6 +31,7 @@ DIRECTIONS = [
 
 SEARCH_WORD = "XMAS"
 
+
 def search_direction(
     words: list[list[str]],
     direction: tuple[int, int],
@@ -48,7 +49,7 @@ def search_direction(
             if len(new_path) == len(SEARCH_WORD):
                 return 1
             dx, dy = direction
-            new_x, new_y = x+dx, y+dy
+            new_x, new_y = x + dx, y + dy
             assert new_x >= 0 and new_y >= 0
             return search_direction(words, direction, (new_x, new_y), new_path)
     except (IndexError, AssertionError):
@@ -61,11 +62,11 @@ for i in range(len(words)):
     for j in range(len(words[i])):
         if words[i][j] == "X":
             xs.append((i, j))
-            
+
 xmas_count = 0
 for pos in xs:
     for dir in DIRECTIONS:
         xmas_count += search_direction(words, dir, pos)
-        
+
 
 print(xmas_count)

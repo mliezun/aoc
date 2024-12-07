@@ -25,6 +25,7 @@ workflows = [w.strip() for w in workflows.splitlines() if w.strip()]
 
 CATEGORY_RANGE = (1, 4000)
 
+
 class GenericPart:
     def __init__(self, x, m, a, s):
         self.part = {
@@ -33,34 +34,34 @@ class GenericPart:
             "a": a,
             "s": s,
         }
-        
+
     def apply_rule(self, rule: str):
-        if '>' in rule:
-            condition, next_workflow = rule.split(':')
-            cat, value = condition.split('>')
+        if ">" in rule:
+            condition, next_workflow = rule.split(":")
+            cat, value = condition.split(">")
             new_part = GenericPart(**self.part)
-            new_part.part[cat] = (int(value)+1, self.part[cat][1])
+            new_part.part[cat] = (int(value) + 1, self.part[cat][1])
             self.part[cat] = (self.part[cat][0], int(value))
             return new_part, next_workflow
-        if '<' in rule:
-            condition, next_workflow = rule.split(':')
-            cat, value = condition.split('<')
+        if "<" in rule:
+            condition, next_workflow = rule.split(":")
+            cat, value = condition.split("<")
             new_part = GenericPart(**self.part)
-            new_part.part[cat] = (self.part[cat][0], int(value)-1)
+            new_part.part[cat] = (self.part[cat][0], int(value) - 1)
             self.part[cat] = (int(value), self.part[cat][1])
             return new_part, next_workflow
-        if rule == 'R':
+        if rule == "R":
             return GenericPart((0, 0), (0, 0), (0, 0), (0, 0)), rule
-        if rule == 'A':
+        if rule == "A":
             return GenericPart(**self.part), rule
         return GenericPart(**self.part), rule
-    
+
     def __repr__(self) -> str:
         return f"{self.part}"
-        
+
     def __str__(self) -> str:
         return repr(self)
-    
+
     def sum(self):
         accum = 1
         for _, (min_val, max_val) in self.part.items():
@@ -74,22 +75,19 @@ def accepted_parts(workflows):
     workflows_rules = {}
     for w in workflows:
         ix = w.find("{")
-        workflows_rules[w[:ix]] = w[ix+1:-1].split(",")
-    
-    
+        workflows_rules[w[:ix]] = w[ix + 1 : -1].split(",")
+
     accepted = []
-    queue = [
-        (GenericPart((1, 4000), (1, 4000), (1, 4000), (1, 4000)), "in")
-    ]
+    queue = [(GenericPart((1, 4000), (1, 4000), (1, 4000), (1, 4000)), "in")]
     while queue:
         part, current = queue.pop(0)
         for rule in workflows_rules[current]:
             new_part, next_workflow = part.apply_rule(rule)
-            if next_workflow == 'A':
+            if next_workflow == "A":
                 accepted.append(new_part)
             elif next_workflow != "R":
                 queue.append((new_part, next_workflow))
-    
+
     return accepted
 
 

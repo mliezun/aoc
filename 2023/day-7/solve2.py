@@ -62,7 +62,7 @@ class Hand:
         elif self.kind < other.kind:
             return -1
         else:
-            for (card, other_card) in zip(self.cards, other.cards):
+            for card, other_card in zip(self.cards, other.cards):
                 if cards.index(card) > cards.index(other_card):
                     return 1
                 elif cards.index(card) < cards.index(other_card):

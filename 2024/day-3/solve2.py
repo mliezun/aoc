@@ -8,18 +8,22 @@ memory = open("input.txt", "r").read().strip()
 
 compute_enabled = True
 
+
 def mul(a, b):
     if compute_enabled:
-        return a*b
+        return a * b
     return 0
+
 
 def do():
     global compute_enabled
     compute_enabled = True
-    
+
+
 def dont():
     global compute_enabled
     compute_enabled = False
+
 
 result = 0
 for val in re.findall(r"(mul\(\d\d?\d?,\d\d?\d?\))|(do\(\))|(don\'t\(\))", memory):

@@ -17,5 +17,5 @@ left_numbers.sort()
 right_numbers = [int(l[1]) for l in locations]
 right_numbers.sort()
 
-diff = [abs(a-b) for a, b in zip(left_numbers, right_numbers)]
+diff = [abs(a - b) for a, b in zip(left_numbers, right_numbers)]
 print(sum(diff))

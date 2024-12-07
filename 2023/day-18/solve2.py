@@ -36,7 +36,7 @@ def dig_lagoon_edges(dig_plan):
         x, y = current
         edge_area += distance
         dx, dy = dir_map[direction]
-        next_pos = (x+dx*distance, y+dy*distance)
+        next_pos = (x + dx * distance, y + dy * distance)
         digged_cubes.append(next_pos)
         current = next_pos
     return digged_cubes, edge_area
@@ -49,4 +49,4 @@ p = shapely.Polygon(lagoon_edges)
 # A = i + b/2 - 1 (p.area)
 # i = A - b/2 + 1
 # lagoon_size = i + b = A + b/2 + 1
-print("result:", p.area+edge_area/2+1)
+print("result:", p.area + edge_area / 2 + 1)

@@ -12,14 +12,15 @@ reports = open("input.txt", "r").read().strip()
 
 reports = [list(map(int, l.split())) for l in reports.splitlines() if l.strip()]
 
+
 def is_safe(rep):
     global_delta = None
     try:
         for l1, l2 in zip(rep[:-1], rep[1:]):
-            delta = int((l1-l2)/abs(l1-l2))
+            delta = int((l1 - l2) / abs(l1 - l2))
             if global_delta is None:
                 global_delta = delta
-            diff = 1 <= abs(l1-l2) <= 3
+            diff = 1 <= abs(l1 - l2) <= 3
             if not diff:
                 return False
             if delta != global_delta:
@@ -28,13 +29,15 @@ def is_safe(rep):
         return False
     return True
 
+
 def eliminate_all(report):
     result = []
     for i in range(len(report)):
-        new_repo = report[:i] + report[i+1:]
-        assert len(report)-1 == len(new_repo)
+        new_repo = report[:i] + report[i + 1 :]
+        assert len(report) - 1 == len(new_repo)
         result.append(new_repo)
     return result
+
 
 def process_reports():
     count_reports = 0
@@ -47,6 +50,7 @@ def process_reports():
                     count_reports += 1
                     break
     return count_reports
+
 
 print(f"{len(reports)=}")
 

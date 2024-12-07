@@ -12,14 +12,15 @@ reports = open("input.txt", "r").read().strip()
 
 reports = [list(map(int, l.split())) for l in reports.splitlines() if l.strip()]
 
+
 def is_safe(rep):
     global_delta = None
     try:
         for l1, l2 in zip(rep[:-1], rep[1:]):
-            delta = int((l1-l2)/abs(l1-l2))
+            delta = int((l1 - l2) / abs(l1 - l2))
             if global_delta is None:
                 global_delta = delta
-            diff = 1 <= abs(l1-l2) <= 3
+            diff = 1 <= abs(l1 - l2) <= 3
             if not diff:
                 return False
             if delta != global_delta:
@@ -28,9 +29,10 @@ def is_safe(rep):
         return False
     return True
 
+
 count_reports = 0
 for rep in reports:
     if is_safe(rep):
         count_reports += 1
-        
+
 print(count_reports)

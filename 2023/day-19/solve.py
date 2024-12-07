@@ -24,21 +24,22 @@ workflows, parts = workflows_parts.split("\n\n")
 workflows = [w.strip() for w in workflows.splitlines() if w.strip()]
 parts = [eval(f"dict({p.strip()[1:-1]})") for p in parts.splitlines() if p.strip()]
 
+
 def apply_rules(part: dict, rules: list[str]):
     for rule in rules:
-        if '>' in rule:
-            condition, next_workflow = rule.split(':')
-            cat, value = condition.split('>')
+        if ">" in rule:
+            condition, next_workflow = rule.split(":")
+            cat, value = condition.split(">")
             if part[cat] > int(value):
                 return next_workflow
-        if '<' in rule:
-            condition, next_workflow = rule.split(':')
-            cat, value = condition.split('<')
+        if "<" in rule:
+            condition, next_workflow = rule.split(":")
+            cat, value = condition.split("<")
             if part[cat] < int(value):
                 return next_workflow
-        if rule == 'R':
+        if rule == "R":
             return rule
-        if rule == 'A':
+        if rule == "A":
             return rule
     return rules[-1]
 
@@ -47,19 +48,18 @@ def accepted_parts(parts, workflows):
     workflows_rules = {}
     for w in workflows:
         ix = w.find("{")
-        workflows_rules[w[:ix]] = w[ix+1:-1].split(",")
-    
+        workflows_rules[w[:ix]] = w[ix + 1 : -1].split(",")
+
     accepted = []
-    
+
     for p in parts:
         current = "in"
         while current not in ("A", "R"):
             current = apply_rules(p, workflows_rules[current])
         if current == "A":
             accepted.append(p)
-    
-    return accepted
 
+    return accepted
 
 
 final_parts = accepted_parts(parts, workflows)

@@ -17,30 +17,36 @@ equations = """190: 10 19
 
 equations = open("input.txt", "r").read().strip()
 
-equations = [[int(n) for n in l.replace(":", "").split(" ")] for l in equations.splitlines() if l.strip()]
+equations = [
+    [int(n) for n in l.replace(":", "").split(" ")]
+    for l in equations.splitlines()
+    if l.strip()
+]
+
 
 @lru_cache()
 def permutations_operators(size: int) -> list[list[str]]:
     if size == 2:
         return [["+"], ["*"], ["||"]]
-    
+
     result = []
-    for perm in permutations_operators(size-1):
+    for perm in permutations_operators(size - 1):
         result.append(["+"] + perm)
         result.append(["*"] + perm)
         result.append(["||"] + perm)
     return result
 
+
 def operate(equation: list[int], operators: list[str]) -> int:
-    assert len(equation) == len(operators)+1, f"{equation=} {operators=}"
+    assert len(equation) == len(operators) + 1, f"{equation=} {operators=}"
     value = equation[0]
     for v, op in zip(equation[1:], operators):
-        if op == '+':
+        if op == "+":
             value += v
-        elif op == '*':
+        elif op == "*":
             value *= v
-        elif op == '||':
-            value = int(str(value)+str(v))
+        elif op == "||":
+            value = int(str(value) + str(v))
     return value
 
 
@@ -52,5 +58,5 @@ for calibration in equations:
         if operate(equation, operators) == calibration_value:
             total_result += calibration_value
             break
-            
+
 print(total_result)

@@ -73,6 +73,7 @@ def follow_beams(layout, starting_pos, starting_direction):
                 pass
     return len(energized)
 
+
 def copy_layout(layout):
     copy_layout = []
     for r in layout:
@@ -83,7 +84,9 @@ def copy_layout(layout):
 max_energized = 0
 for i in range(len(layout)):
     max_energized = max(max_energized, follow_beams(layout, (i, -1), (0, 1)))
-    max_energized = max(max_energized, follow_beams(layout, (i, len(layout[0])), (0, -1)))
+    max_energized = max(
+        max_energized, follow_beams(layout, (i, len(layout[0])), (0, -1))
+    )
 for j in range(len(layout[0])):
     max_energized = max(max_energized, follow_beams(layout, (-1, j), (1, 0)))
     max_energized = max(max_energized, follow_beams(layout, (len(layout), j), (-1, 0)))

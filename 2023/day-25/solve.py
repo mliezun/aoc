@@ -26,16 +26,15 @@ wiring_diagram = dict(
 )
 
 
-
 G = nx.Graph()
 for w, ngs in wiring_diagram.items():
     for n in ngs:
         G.add_edge(w, n)
-      
+
 for e in nx.connectivity.minimum_edge_cut(G):
     G.remove_edge(*e)
 
 
 connected_components = list(nx.connected_components(G))
 
-print("result:", len(connected_components[0])*len(connected_components[1]))
+print("result:", len(connected_components[0]) * len(connected_components[1]))

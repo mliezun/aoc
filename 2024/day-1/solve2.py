@@ -18,6 +18,6 @@ for l in locations:
 
 similarity_score = 0
 for l in locations:
-    similarity_score += int(l[0])*numbers_count.get(l[0], 0)
+    similarity_score += int(l[0]) * numbers_count.get(l[0], 0)
 
 print(similarity_score)

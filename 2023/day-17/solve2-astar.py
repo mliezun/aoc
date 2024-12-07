@@ -27,12 +27,14 @@ def astar(heat):
             new_sdc = sdc + 1 if new_d == d else 1
             is_reverse = (new_d + 2) % 4 == d
             has_4_moves = (
-                (dy == 1 and len(heat[0])-new_y >= 4) or
-                (dy == -1 and new_y >= 3) or
-                (dx == 1 and len(heat)-new_x >= 4) or
-                (dx == -1 and new_x >= 3)
+                (dy == 1 and len(heat[0]) - new_y >= 4)
+                or (dy == -1 and new_y >= 3)
+                or (dx == 1 and len(heat) - new_x >= 4)
+                or (dx == -1 and new_x >= 3)
             )
-            is_valid = (new_sdc <= 10 and (new_d == d or ((sdc >= 4 or sdc == -1) and has_4_moves)))
+            is_valid = new_sdc <= 10 and (
+                new_d == d or ((sdc >= 4 or sdc == -1) and has_4_moves)
+            )
             if (
                 0 <= new_x < len(heat)
                 and 0 <= new_y < len(heat[0])

@@ -8,7 +8,8 @@ memory = open("input.txt", "r").read().strip()
 
 
 def mul(a, b):
-    return a*b
+    return a * b
+
 
 result = 0
 for val in re.findall(r"mul\(\d\d?\d?,\d\d?\d?\)", memory):

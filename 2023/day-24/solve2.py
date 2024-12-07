@@ -28,15 +28,15 @@ def system_eq(coefficients):
     a2, b2, c2, d2, e2, f2 = coefficients[2]
 
     eqs = [
-        Eq(a0*t1+b0, ai*t1+bi),
-        Eq(c0*t1+d0, ci*t1+di),
-        Eq(e0*t1+f0, ei*t1+fi),
-        Eq(a1*t2+b1, ai*t2+bi),
-        Eq(c1*t2+d1, ci*t2+di),
-        Eq(e1*t2+f1, ei*t2+fi),
-        Eq(a2*t3+b2, ai*t3+bi),
-        Eq(c2*t3+d2, ci*t3+di),
-        Eq(e2*t3+f2, ei*t3+fi),
+        Eq(a0 * t1 + b0, ai * t1 + bi),
+        Eq(c0 * t1 + d0, ci * t1 + di),
+        Eq(e0 * t1 + f0, ei * t1 + fi),
+        Eq(a1 * t2 + b1, ai * t2 + bi),
+        Eq(c1 * t2 + d1, ci * t2 + di),
+        Eq(e1 * t2 + f1, ei * t2 + fi),
+        Eq(a2 * t3 + b2, ai * t3 + bi),
+        Eq(c2 * t3 + d2, ci * t3 + di),
+        Eq(e2 * t3 + f2, ei * t3 + fi),
     ]
 
     return solve(eqs)

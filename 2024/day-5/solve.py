@@ -42,7 +42,7 @@ for l in pages.splitlines():
         page_ordering.append([int(v) for v in l.split("|")])
     if "," in l:
         page_updates.append([int(v) for v in l.split(",")])
-        
+
 
 def page_is_correct(page_order: list[int], page_update: list[int]):
     a, b = page_order
@@ -51,10 +51,12 @@ def page_is_correct(page_order: list[int], page_update: list[int]):
     except ValueError:
         return True
 
+
 def middle_item(page: list[int]):
     if len(page) % 2 == 0:
-        return (page[len(page)//2]+page[len(page)//2+1])/2
-    return page[len(page)//2]
+        return (page[len(page) // 2] + page[len(page) // 2 + 1]) / 2
+    return page[len(page) // 2]
+
 
 result = 0
 for page_update in page_updates:
@@ -65,5 +67,5 @@ for page_update in page_updates:
             break
     if all_pass:
         result += middle_item(page_update)
-        
+
 print(result)
