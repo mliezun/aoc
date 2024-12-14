@@ -24,7 +24,14 @@ tile_map = [[[] for _ in range(11)] for _ in range(7)]
 straight_lines = open("input.txt", "r").read().strip()
 tile_map = [[[] for _ in range(101)] for _ in range(103)]
 
-straight_lines = [[tuple(map(int, v.replace("p=", "").replace("v=", "").split(','))) for v in l.split(" ")] for l in straight_lines.splitlines() if l.strip()]
+straight_lines = [
+    [
+        tuple(map(int, v.replace("p=", "").replace("v=", "").split(",")))
+        for v in l.split(" ")
+    ]
+    for l in straight_lines.splitlines()
+    if l.strip()
+]
 
 
 @dataclass
@@ -33,32 +40,33 @@ class Robot:
     velocity: tuple[int, int]
     seconds: int
 
+
 def move_robot(tile_map: list[list[list[Robot]]], robot: Robot, seconds: int):
     if robot.seconds == seconds:
         return
-    
+
     x, y = robot.pos
     vx, vy = robot.velocity
     robot.seconds = seconds
-    
+
     cell = tile_map[y][x]
     assert robot in cell
     cell.remove(robot)
-    
-    new_y = y+vy
+
+    new_y = y + vy
     if new_y >= len(tile_map):
-        new_y = new_y-len(tile_map)
+        new_y = new_y - len(tile_map)
     elif new_y < 0:
-        new_y = len(tile_map)-abs(new_y)
-    new_x = x+vx
+        new_y = len(tile_map) - abs(new_y)
+    new_x = x + vx
     if new_x >= len(tile_map[0]):
-        new_x = new_x-len(tile_map[0])
+        new_x = new_x - len(tile_map[0])
     elif new_x < 0:
-        new_x = len(tile_map[0])-abs(new_x)
-        
+        new_x = len(tile_map[0]) - abs(new_x)
+
     robot.pos = (new_x, new_y)
     tile_map[new_y][new_x].append(robot)
-    
+
 
 for p, v in straight_lines:
     x, y = p
@@ -143,13 +151,14 @@ def generate_screen(tile_map):
         screen += "\n"
     return screen
 
+
 for sec in range(10_000):
     for i in range(len(tile_map)):
         for j in range(len(tile_map[0])):
             cell = [r for r in tile_map[i][j]]
             for r in cell:
-                move_robot(tile_map, r, sec+1)
+                move_robot(tile_map, r, sec + 1)
     if tree in (screen := generate_screen(tile_map)):
         print(screen)
-        print("Seconds:", sec+1)
+        print("Seconds:", sec + 1)
         break

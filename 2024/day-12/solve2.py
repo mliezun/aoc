@@ -84,50 +84,51 @@ def calculate_outer_perimeter(points: set):
                 perimeter += 1
     return perimeter
 
+
 def find_segments(sides: set):
     current_side = sides.pop()
     x, y, d = current_side
     current_segment = [(x, y, d)]
     i = 1
-    while d == 'u' and ((x, y+i, 'u') in sides or (x, y-i, 'u') in sides):
-        if (x, y+i, 'u') in sides:
-            sides.remove((x, y+i, 'u'))
-            current_segment.append((x, y+i, 'u'))
-        if (x, y-i, 'u') in sides:
-            sides.remove((x, y-i, 'u'))
-            current_segment.append((x, y-i, 'u'))
+    while d == "u" and ((x, y + i, "u") in sides or (x, y - i, "u") in sides):
+        if (x, y + i, "u") in sides:
+            sides.remove((x, y + i, "u"))
+            current_segment.append((x, y + i, "u"))
+        if (x, y - i, "u") in sides:
+            sides.remove((x, y - i, "u"))
+            current_segment.append((x, y - i, "u"))
         i += 1
     k = 1
-    while d == 'd' and ((x, y+k, 'd') in sides or (x, y-k, 'd') in sides):
-        if (x, y+k, 'd') in sides:
-            sides.remove((x, y+k, 'd'))
-            current_segment.append((x, y+k, 'd'))
-        if (x, y-k, 'd') in sides:
-            sides.remove((x, y-k, 'd'))
-            current_segment.append((x, y-k, 'd'))
+    while d == "d" and ((x, y + k, "d") in sides or (x, y - k, "d") in sides):
+        if (x, y + k, "d") in sides:
+            sides.remove((x, y + k, "d"))
+            current_segment.append((x, y + k, "d"))
+        if (x, y - k, "d") in sides:
+            sides.remove((x, y - k, "d"))
+            current_segment.append((x, y - k, "d"))
         k += 1
     j = 1
-    while d == 'r' and ((x-j, y, 'r') in sides or (x+j, y, 'r') in sides):
-        if (x-j, y, 'r') in sides:
-            sides.remove((x-j, y, 'r'))
-            current_segment.append((x-j, y, 'r'))
-        if (x+j, y, 'r') in sides:
-            sides.remove((x+j, y, 'r'))
-            current_segment.append((x+j, y, 'r'))
+    while d == "r" and ((x - j, y, "r") in sides or (x + j, y, "r") in sides):
+        if (x - j, y, "r") in sides:
+            sides.remove((x - j, y, "r"))
+            current_segment.append((x - j, y, "r"))
+        if (x + j, y, "r") in sides:
+            sides.remove((x + j, y, "r"))
+            current_segment.append((x + j, y, "r"))
         j += 1
     m = 1
-    while d == 'l' and ((x-m, y, 'l') in sides or (x+m, y, 'l') in sides):
-        if (x-m, y, 'l') in sides:
-            sides.remove((x-m, y, 'l'))
-            current_segment.append((x-m, y, 'l'))
-        if (x+m, y, 'l') in sides:
-            sides.remove((x+m, y, 'l'))
-            current_segment.append((x+m, y, 'l'))
+    while d == "l" and ((x - m, y, "l") in sides or (x + m, y, "l") in sides):
+        if (x - m, y, "l") in sides:
+            sides.remove((x - m, y, "l"))
+            current_segment.append((x - m, y, "l"))
+        if (x + m, y, "l") in sides:
+            sides.remove((x + m, y, "l"))
+            current_segment.append((x + m, y, "l"))
         m += 1
     if sides:
         return [current_segment] + find_segments(sides)
     return [current_segment]
-        
+
 
 def calculate_number_of_sides(points: set):
     sides = set()
@@ -135,9 +136,9 @@ def calculate_number_of_sides(points: set):
         for dx, dy in DIRECTIONS:
             if (x + dx, y + dy) not in points:
                 if dx != 0:
-                    sides.add((x+dx, y+dy, 'd' if dx > 0 else 'u'))
+                    sides.add((x + dx, y + dy, "d" if dx > 0 else "u"))
                 if dy != 0:
-                    sides.add((x+dx, y+dy, 'r' if dy > 0 else 'l'))
+                    sides.add((x + dx, y + dy, "r" if dy > 0 else "l"))
     sides = list(sides)
     sides.sort()
     segments = find_segments(sides)

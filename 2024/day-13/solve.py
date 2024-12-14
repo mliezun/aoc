@@ -64,6 +64,7 @@ def minimize_cost(A, B, P):
 
     return None, None, None
 
+
 def as_int(presses: Optional[float], precision: float = 0.00001) -> Optional[int]:
     if presses is None:
         return None
@@ -71,7 +72,7 @@ def as_int(presses: Optional[float], precision: float = 0.00001) -> Optional[int
     if abs(presses - presses_int) > precision:
         return None
     return presses_int
-    
+
 
 total_cost = 0
 for A, B, P in claws:
@@ -84,5 +85,5 @@ for A, B, P in claws:
         print("Not found solution for", A, B, P)
     else:
         total_cost += cost
-        
+
 print("result:", total_cost)

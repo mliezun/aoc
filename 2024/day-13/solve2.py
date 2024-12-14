@@ -64,6 +64,7 @@ def minimize_cost(A, B, P):
 
     return None, None, None
 
+
 def as_int(presses: Optional[float], precision: float = 0.001) -> Optional[int]:
     if presses is None:
         return None
@@ -72,7 +73,7 @@ def as_int(presses: Optional[float], precision: float = 0.001) -> Optional[int]:
         print("diff", abs(presses - presses_int))
         return None
     return presses_int
-    
+
 
 DELTA = 10000000000000
 
@@ -80,7 +81,7 @@ total_cost = 0
 i = 0
 for A, B, P in claws:
     i += 1
-    pressed_a, pressed_b, cost = minimize_cost(A, B, (P[0]+DELTA, P[1]+DELTA))
+    pressed_a, pressed_b, cost = minimize_cost(A, B, (P[0] + DELTA, P[1] + DELTA))
     print(pressed_a, pressed_b, cost)
     pressed_a = as_int(pressed_a)
     pressed_b = as_int(pressed_b)
@@ -90,5 +91,5 @@ for A, B, P in claws:
     else:
         print(f"Found solution for claw {i}")
         total_cost += cost
-        
+
 print("result:", total_cost)
