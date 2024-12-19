@@ -29,12 +29,13 @@ def composed_option_count(target: str, substrings: list[str]) -> int:
     dp[0] = 1
     for i in range(1, len(target) + 1):
         for substring in substrings:
-            if i >= len(substring) and target[i - len(substring):i] == substring:
+            if i >= len(substring) and target[i - len(substring) : i] == substring:
                 dp[i] += dp[i - len(substring)]
     return dp[-1]
+
 
 result = 0
 for design in desired_designs:
     result += composed_option_count(design, towel_patterns)
-        
+
 print("result:", result)
