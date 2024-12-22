@@ -1,6 +1,7 @@
 from math import inf
 
-lines = open('input.txt', 'r').read().strip().splitlines()
+lines = open("input.txt", "r").read().strip().splitlines()
+
 
 def get_adjacent_positions(keypad_map, position):
     directions = {"<": (0, -1), ">": (0, 1), "^": (-1, 0), "v": (1, 0)}
@@ -48,7 +49,9 @@ def calculate_path_length(sequence, keypad_levels, current_level=0, max_depth=25
 
         for path in candidate_paths:
             if current_level < max_depth:
-                path_cost = calculate_path_length(path, keypad_levels, current_level + 1, max_depth)
+                path_cost = calculate_path_length(
+                    path, keypad_levels, current_level + 1, max_depth
+                )
             else:
                 path_cost = len(path)
             shortest = min(shortest, path_cost)
@@ -58,16 +61,27 @@ def calculate_path_length(sequence, keypad_levels, current_level=0, max_depth=25
     memo[(sequence_key, current_level)] = total_steps
     return total_steps
 
+
 numeric_keys = {
-    '7': (0, 0), '8': (0, 1), '9': (0, 2),
-    '4': (1, 0), '5': (1, 1), '6': (1, 2),
-    '1': (2, 0), '2': (2, 1), '3': (2, 2),
-    '0': (3, 1), 'A': (3, 2),
+    "7": (0, 0),
+    "8": (0, 1),
+    "9": (0, 2),
+    "4": (1, 0),
+    "5": (1, 1),
+    "6": (1, 2),
+    "1": (2, 0),
+    "2": (2, 1),
+    "3": (2, 2),
+    "0": (3, 1),
+    "A": (3, 2),
 }
 
 arrow_keys = {
-    '^': (0, 1), 'A': (0, 2),
-    '<': (1, 0), 'v': (1, 1), '>': (1, 2),
+    "^": (0, 1),
+    "A": (0, 2),
+    "<": (1, 0),
+    "v": (1, 1),
+    ">": (1, 2),
 }
 
 keypad_map = {level: arrow_keys for level in range(1, 26)}
@@ -75,5 +89,7 @@ keypad_map[0] = numeric_keys
 
 result = 0
 for code in lines:
-    result += int(code[:-1]) * calculate_path_length(list(code), keypad_map, max_depth=25)
+    result += int(code[:-1]) * calculate_path_length(
+        list(code), keypad_map, max_depth=25
+    )
 print(result)
